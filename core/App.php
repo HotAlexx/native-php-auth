@@ -1,5 +1,6 @@
 <?php
 require_once('controllers/BaseController.php');
+require_once('models/User.php');
 
 class App
 {
@@ -8,9 +9,13 @@ class App
         $controller = new BaseController();
         $action = $this->getAction();
         if (method_exists($controller, $action)) {
+            $user = new User();
+            if (in_array($action, $controller->auth_actions) && !$user->auth()) {
+                header('Location: /?action=login');
+            }
             $controller->{$action}();
         } else {
-            header("HTTP/1.0 404 Not Found");
+            header("HTTP/1.1 404 Not Found");
         }
     }
 
