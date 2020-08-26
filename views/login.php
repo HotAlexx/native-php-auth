@@ -10,17 +10,17 @@
 <form method="post" action="/?action=login">
     <label>
         Login:
-        <input type="text" name="login" value="<?=$user->login?>"/>
+        <input type="text" name="login" value="<?=$login?>"/>
     </label><br/>
     <label>
         Password:
-        <input type="password" name="password" value="<?=$user->password?>"/>
+        <input type="password" name="password" value="<?=$password?>"/>
     </label><br/>
     <input type="submit" name="submit"/><br/>
 </form>
 <?php
-    if (!empty($user->errors)) {
-        foreach ($user->errors as $error) {
+    if (!empty($errors)) {
+        foreach ($errors as $error) {
             echo $error . '<br/>';
         }
     }
