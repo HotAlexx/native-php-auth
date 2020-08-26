@@ -1,5 +1,5 @@
 <?php
-
+require_once('db_config.php');
 
 class Database
 {
@@ -9,9 +9,9 @@ class Database
 	private function __construct () {
 
         $this->pdo = new PDO(
-            'mysql:host=localhost;dbname=auth_test',
-            'root',
-            'root',
+            DB_DSN,
+            DB_USER,
+            DB_PASS,
             [PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"]
         );
 
