@@ -5,9 +5,13 @@
     <title>Авторизация пользователя. Тестовое задание</title>
 </head>
 <body>
-<h1>Авторизация</h1>
-<p>Введите логин и пароль:</p>
-<form method="post" action="/?action=login">
+<h1>Регистрация</h1>
+<p>Введите данные:</p>
+<form method="post" action="/?action=registration">
+    <label>
+        E-mail:
+        <input type="text" name="email" value="<?=$user->email?>"/>
+    </label><br/>
     <label>
         Login:
         <input type="text" name="login" value="<?=$user->login?>"/>
@@ -15,6 +19,10 @@
     <label>
         Password:
         <input type="password" name="password" value="<?=$user->password?>"/>
+    </label><br/>
+    <label>
+        Ф.И.О.:
+        <input type="text" name="fio" value="<?=$user->fio?>"/>
     </label><br/>
     <input type="submit" name="submit"/><br/>
 </form>
@@ -25,6 +33,5 @@
         }
     }
 ?>
-<a href="/?action=registration">Регистрация</a>
 </body>
 </html>

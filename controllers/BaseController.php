@@ -25,6 +25,21 @@ class BaseController
 
     public function registration()
     {
-        echo 'registration!';
+        if (isset($_POST['submit'])) {
+            $user = new User();
+            $user->login = $_POST['login'];
+            $user->password = $_POST['password'];
+            $user->email = $_POST['email'];
+            $user->fio = $_POST['fio'];
+            if ($user->validate()) {
+                $user->save();
+                include('views/registration_success.php');
+            } else {
+                include('views/registration.php');
+            }
+        } else {
+            include('views/registration.php');
+        }
+
     }
 }

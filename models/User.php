@@ -1,10 +1,12 @@
 <?php
-
+require_once('core/Database.php');
 
 class User
 {
     public $login;
     public $password;
+    public $email;
+    public $fio;
     public $errors = [];
 
     public function auth()
@@ -25,5 +27,12 @@ class User
         }
 
         return $no_errors;
+    }
+
+    public function save()
+    {
+        $db = Database::getInstance();
+        $sth = $db->pdo->prepare("INSERT INTO `users` SET `login` = :login, `password` = :password");
+        $sth->execute(array('login' => 1, 'password' => '222'));
     }
 }
