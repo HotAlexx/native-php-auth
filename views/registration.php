@@ -10,25 +10,25 @@
 <form method="post" action="/?action=registration">
     <label>
         E-mail:
-        <input type="text" name="email" value="<?=$user->email?>"/>
+        <input type="text" name="email" value="<?=$email?>"/>
     </label><br/>
     <label>
         Login:
-        <input type="text" name="login" value="<?=$user->login?>"/>
+        <input type="text" name="login" value="<?=$login?>"/>
     </label><br/>
     <label>
         Password:
-        <input type="password" name="password" value="<?=$user->password?>"/>
+        <input type="password" name="password" value="<?=$password?>"/>
     </label><br/>
     <label>
         Ф.И.О.:
-        <input type="text" name="fio" value="<?=$user->fio?>"/>
+        <input type="text" name="fio" value="<?=$fio?>"/>
     </label><br/>
     <input type="submit" name="submit"/><br/>
 </form>
 <?php
-    if (!empty($user->errors)) {
-        foreach ($user->errors as $error) {
+    if (!empty($errors)) {
+        foreach ($errors as $error) {
             echo $error . '<br/>';
         }
     }

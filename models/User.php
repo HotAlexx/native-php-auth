@@ -3,6 +3,7 @@ require_once('core/Database.php');
 
 class User
 {
+    public $id;
     public $login;
     public $password;
     public $password_hash;
@@ -34,6 +35,7 @@ class User
         $user_array = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($user_array) {
             $user = new self();
+            $user->id = $user_array['id'];
             $user->login = $user_array['login'];
             $user->password_hash = $user_array['password'];
             $user->email = $user_array['email'];
@@ -60,8 +62,6 @@ class User
 
     public function logout()
     {
-//        unset($_COOKIE['user']);
-//        unset($_COOKIE['password_hash']);
         setcookie("user", "", time() - 3600, "/");
         setcookie("password_hash", "", time() - 3600, "/");
         return true;
@@ -84,13 +84,26 @@ class User
 
     public function save()
     {
-        $db = Database::getInstance();
-        $sth = $db->pdo->prepare("INSERT INTO `users` SET `login` = :login, `password` = :password, `email` = :email, `fio` = :fio");
-        $sth->execute([
-            'login' => $this->login,
-            'password' => md5($this->password),
-            'email' => $this->email,
-            'fio' => $this->fio,
-        ]);
+        if (isset($this->id)) {
+            $db = Database::getInstance();
+            $sth = $db->pdo->prepare("UPDATE `users` SET `login` = :login, `password` = :password, `email` = :email, `fio` = :fio WHERE `id` = :id");
+            $sth->execute([
+                'id' => $this->id,
+                'login' => $this->login,
+                'password' => md5($this->password),
+                'email' => $this->email,
+                'fio' => $this->fio,
+            ]);
+        } else {
+            $db = Database::getInstance();
+            $sth = $db->pdo->prepare("INSERT INTO `users` SET `login` = :login, `password` = :password, `email` = :email, `fio` = :fio");
+            $sth->execute([
+                'login' => $this->login,
+                'password' => md5($this->password),
+                'email' => $this->email,
+                'fio' => $this->fio,
+            ]);
+        }
+
     }
 }
